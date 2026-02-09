@@ -3,6 +3,7 @@ package practice;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import model.Candidate;
 import model.Cat;
@@ -55,8 +56,12 @@ public class StreamPractice {
     public List<Person> selectMenByAge(List<Person> peopleList, int fromAge, int toAge) {
         return peopleList.stream()
                 .filter(p -> p.getSex() == Person.Sex.MAN)
-                .filter(p -> fromAge >= p.getAge() && p.getAge() <= toAge)
+                .filter(agePredicate(fromAge, toAge))
                 .toList();
+    }
+
+    private static Predicate<Person> agePredicate(int fromAge, int toAge) {
+        return p -> fromAge <= p.getAge() && p.getAge() <= toAge;
     }
 
     /**
@@ -73,8 +78,8 @@ public class StreamPractice {
                                           int maleToAge, List<Person> peopleList) {
         return peopleList.stream()
                 .filter(person -> person.getSex() == Person.Sex.MAN
-                        ? fromAge >= person.getAge() && person.getAge() <= maleToAge
-                        : fromAge >= person.getAge() && person.getAge() <= femaleToAge)
+                        ? agePredicate(fromAge, maleToAge).test(person)
+                        : agePredicate(fromAge, femaleToAge).test(person))
                 .toList();
     }
 
@@ -108,6 +113,7 @@ public class StreamPractice {
         return candidates.stream()
                 .filter(CANDIDATE_VALIDATOR::test)
                 .map(Candidate::getName)
+                .sorted()
                 .toList();
     }
 }
