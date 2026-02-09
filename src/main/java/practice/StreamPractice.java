@@ -1,12 +1,8 @@
 package practice;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
-
 import model.Candidate;
 import model.Cat;
 import model.Person;
@@ -72,9 +68,9 @@ public class StreamPractice {
     public List<Person> getWorkablePeople(int fromAge, int femaleToAge,
                                           int maleToAge, List<Person> peopleList) {
         return peopleList.stream()
-                .filter(person -> person.getSex() == Person.Sex.MAN ?
-                       fromAge >= person.getAge() && person.getAge() <= maleToAge :
-                        fromAge >= person.getAge() && person.getAge() <= femaleToAge)
+                .filter(person -> person.getSex() == Person.Sex.MAN
+                        ? fromAge >= person.getAge() && person.getAge() <= maleToAge
+                        : fromAge >= person.getAge() && person.getAge() <= femaleToAge)
                 .toList();
     }
 
@@ -105,6 +101,9 @@ public class StreamPractice {
      * parametrized with Candidate in CandidateValidator.
      */
     public List<String> validateCandidates(List<Candidate> candidates) {
-        return Collections.emptyList();
+        return candidates.stream()
+                .filter(candidate -> new CandidateValidator.test(candidate))
+                .map(Candidate::getName)
+                .toList();
     }
 }
