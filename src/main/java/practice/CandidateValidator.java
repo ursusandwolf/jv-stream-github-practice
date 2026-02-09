@@ -1,15 +1,13 @@
 package practice;
 
-import model.Candidate;
-
 import java.util.function.Predicate;
+import model.Candidate;
 
 public class CandidateValidator implements Predicate<Candidate> {
     @Override
     public boolean test(Candidate candidate) {
         return isValid(candidate, 35, "Ukrainian", 10);
     }
-
 
     private static boolean isValid(Candidate c, int age, String nationality, int required) {
         return c.getAge() > age

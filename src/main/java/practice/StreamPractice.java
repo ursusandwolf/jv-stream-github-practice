@@ -1,7 +1,7 @@
 package practice;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 import model.Candidate;
 import model.Cat;
@@ -40,7 +40,7 @@ public class StreamPractice {
                 .map(i -> (i % 2 == 0) ? numbers.get(i) - 1 : numbers.get(i))
                 .filter(n -> n % 2 == 0)
                 .average()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(RuntimeException::new);
     }
 
     /**
