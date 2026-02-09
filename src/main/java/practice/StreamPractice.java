@@ -28,8 +28,8 @@ public class StreamPractice {
                 .filter(i -> i % 2 == 0)
                 .min()
                 .orElseThrow(() -> new RuntimeException(
-                        "Can't get min value from list: < Here is our input '"
-                                + numbers.toString() + "' >"));
+                        "Can't get min value from list: "
+                                + numbers.toString()));
     }
 
     /**
